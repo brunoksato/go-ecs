@@ -1,0 +1,46 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.9
+
+    working_directory: /go/src/github.com/brunoksato/go-ecs
+
+    steps:
+      - checkout
+
+      - run: 
+          name: Running Unit Tests
+          command: go test
+
+      - run: 
+          name: build
+          command: go build
+
+  build_and_deploy:
+    machine: true
+    steps:
+      - checkout
+
+      - run:
+          name: Build and Deploy Images to ECS
+          command: bash deploy.sh
+
+workflows:
+    version: 2
+    
+    test-and-deploy:
+      jobs:
+        - build
+        - hold:
+            type: approval
+            requires:
+             - build
+        - build_and_deploy:
+            requires:
+             - hold
+            filters:
+              branches:
+                only:
+                  - master
