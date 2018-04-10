@@ -1,9 +1,8 @@
 version: 2
-
 jobs:
   build:
     docker:
-      - image: circleci/golang:1.9
+      - image: circleci/golang:1.10
 
     working_directory: /go/src/github.com/brunoksato/go-ecs
 
@@ -13,12 +12,12 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --no-cache g++ glide
+            go get -u -v github.com/Masterminds/glide
             glide install
-
+            
       - run: 
           name: Running Unit Tests
-          command: go test
+          command: go test -v $(glide novendor)
 
       - run: 
           name: build
