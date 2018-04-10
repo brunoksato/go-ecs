@@ -10,6 +10,12 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache g++ glide
+            glide install
+
       - run: 
           name: Running Unit Tests
           command: go test

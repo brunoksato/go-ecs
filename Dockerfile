@@ -32,7 +32,7 @@ RUN mkdir -p /go/src/github.com/brunoksato/go-ecs
 ADD . /go/src/github.com/brunoksato/go-ecs
 
 WORKDIR /go/src/github.com/brunoksato/go-ecs
-RUN dep ensure
+RUN glide install
     
 RUN go install github.com/brunoksato/go-ecs
 
