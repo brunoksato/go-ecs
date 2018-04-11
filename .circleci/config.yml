@@ -1,17 +1,21 @@
 version: 2
 jobs:
   build:
+    working_directory: /go/src/github.com/brunoksato/go-ecs
+
     docker:
       - image: circleci/golang:1.10
 
-    working_directory: /go/src/github.com/brunoksato/go-ecs
-
     steps:
       - checkout
-
       - run:
           name: Install dependencies
           command: |
+            apt-get -y -qq update
+            apt-get -y -qq install python3.4-dev
+            curl -O https://bootstrap.pypa.io/get-pip.py
+            python3.4 get-pip.py --user
+            pip install awscli --upgrade --user
             go get -u -v github.com/Masterminds/glide
             glide install
             
@@ -20,7 +24,7 @@ jobs:
           command: go test -v $(glide novendor)
 
       - run: 
-          name: build
+          name: Build
           command: go build
 
   build_and_deploy:

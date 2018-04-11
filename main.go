@@ -20,7 +20,6 @@ func boot() {
 
 func SetupRouter(test bool) *echo.Echo {
 	e := echo.New()
-
 	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
@@ -40,7 +39,7 @@ func main() {
 	// Echo instance
 	root := SetupRouter(false)
 
-	// Start server
+	// Start serve./configure --enable-pythoninterpr
 	addr := ":" + os.Getenv("PORT")
 	go func() {
 		if err := root.Start(addr); err != nil {
