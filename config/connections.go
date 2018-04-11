@@ -9,8 +9,8 @@ import (
 )
 
 var CONFIGURATIONS map[string]string = map[string]string{
-	"DB":   "host=dev.c7srmclzep5h.us-east-1.rds.amazonaws.com user=petmondo dbname=petmondo password=wedevelop1352100 sslmode=disable",
-	"NAME": "PETMONDO",
+	"DB":   "YOUR_DB",
+	"NAME": "LOCAL",
 	"PORT": "8080",
 }
 
